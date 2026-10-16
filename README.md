@@ -1,23 +1,74 @@
-# Mijn wiskunde-dashboard
+# Wiskunde — leeromgeving + beveiligd dashboard
 
-Een eenvoudige website voor leerstof van het 4de middelbaar.
+De website is bedoeld voor GitHub Pages. `index.html` is publiek en `dashboard.html` is de beheerinterface. De leerstof wordt als afzonderlijke `.md`-bestanden opgeslagen in een Supabase Storage-bucket.
 
-## Wat kan de website?
-- Vier boekonderdelen: Goniometrie en Meetkunde, Grafen, Telproblemen en Functies.
-- Zelf hoofdstukken toevoegen met een titel, korte uitleg, formules en uitgebreide notities.
-- Bestaande leerstof bewerken of verwijderen.
-- Zoeken in onderwerpen en inhoud.
-- De eigen notities automatisch bewaren in de browser.
+## Belangrijk over beveiliging
 
-## Lokaal starten
-Open `index.html` in een moderne browser.
+- GitHub Pages is alleen de hosting van de HTML/CSS/JS.
+- Supabase Auth controleert wie inlogt.
+- Supabase Storage policies (in `sql/setup.sql`) zijn de echte beveiliging: iedereen kan bestanden lezen, maar alleen het UUID-account dat je instelt mag bestanden toevoegen, wijzigen of verwijderen.
+- Een verborgen dashboard of client-side wachtwoord alleen is geen echte beveiliging.
+- Zet NOOIT een `service_role`- of secret key in `config.js`. Gebruik uitsluitend de publishable/anon key met de policies ingeschakeld.
 
-## Publiceren met GitHub Pages
-1. Upload `index.html` en `README.md` naar de root van de repository `wiskunde`.
-2. Ga naar Settings → Pages.
-3. Kies Deploy from a branch, selecteer `main` en `/ (root)`, en sla op.
+## Eenmalige setup
 
-## Belangrijk over bewaren
-Zelf toegevoegde notities worden opgeslagen in localStorage van de browser op het toestel dat je gebruikt. Ze worden niet automatisch naar GitHub gesynchroniseerd en verschijnen niet vanzelf op een ander toestel. Bewaar je notities door de browsergegevens niet te wissen en maak eventueel een back-up.
+### 1. Maak een Supabase-project
 
-De voorbeeldinhoud is een startbasis. Controleer formules en leerstof met je eigen cursus.
+Ga naar https://supabase.com en maak een project aan. Bewaar de projectgegevens veilig.
+
+### 2. Maak jouw beheeraccount
+
+In Supabase: **Authentication → Users → Add user**. Maak zelf één gebruiker aan met je e-mailadres en een sterk, uniek wachtwoord. Zet openbare registratie/sign-ups uit als die optie actief staat; voeg geen publieke registratieknop toe aan de website.
+
+Kopieer de UUID van deze gebruiker.
+
+### 3. Stel de Storage-beveiliging in
+
+1. Open `sql/setup.sql`.
+2. Vervang `VUL-HIER-JE-ADMIN-USER-UUID-IN` op alle plaatsen door jouw Auth user UUID.
+3. Open **SQL Editor** in Supabase en voer het script uit.
+4. Controleer onder **Storage** dat de bucket `leerstof` bestaat en publiek leesbaar is. De bucket moet publiek zijn om de leerstof zonder login te tonen; de policies beperken schrijven nog steeds tot jouw UUID.
+
+### 4. Stel de website in
+
+1. Kopieer `config.example.js` naar een nieuw bestand `config.js`.
+2. Vul `SUPABASE_URL` en `SUPABASE_ANON_KEY` in met de URL en publishable/anon key van je Supabase-project.
+3. Upload `config.js` samen met de andere websitebestanden. Het is normaal dat de project-URL en publishable/anon key in de browser zichtbaar zijn: de database- en Storage-policies moeten de toegang beveiligen.
+4. Controleer dat je nooit een `service_role`- of secret key uploadt.
+
+### 5. Publiceer met GitHub Pages
+
+Upload de inhoud van deze map naar de root van je repository `wiskunde`. Ga naar **Settings → Pages** en kies de `main`-branch en root-map. GitHub publiceert dan je `index.html`.
+
+### 6. Test de rechten
+
+- Open `index.html` in een privévenster: leerstof moet leesbaar zijn zonder login.
+- Open `dashboard.html`: zonder login mag je geen beheerscherm gebruiken.
+- Log in met jouw account: toevoegen, wijzigen en verwijderen moet werken.
+- Maak nooit een tweede gebruiker met beheerrechten. Test eventueel met een apart testaccount dat geen schrijfrechten heeft.
+
+## Leerstof toevoegen
+
+Log in op `dashboard.html`, kies het boek, geef het hoofdstuk een titel en bestandsnaam en schrijf de inhoud. Gebruik bijvoorbeeld:
+
+```md
+# Titel van het hoofdstuk
+
+## Uitleg
+Schrijf de uitleg hier.
+
+## Formules
+- Formule 1
+
+## Uitgewerkt voorbeeld
+1. Eerste stap
+2. Tweede stap
+```
+
+Elk hoofdstuk wordt als een afzonderlijk Markdown-bestand in Supabase Storage bewaard. De metadata bovenaan elk bestand bepaalt het boek, de titel en de korte omschrijving.
+
+## Let op
+
+De voorbeeldbestanden in `leerstof/` moeten ook naar de Supabase Storage-bucket `leerstof` worden geüpload als je ze meteen wilt zien. De HTML-site leest de bestanden uit Supabase Storage, niet rechtstreeks uit de map in GitHub. Je kunt de vier voorbeeldbestanden uploaden via Storage → `leerstof` → Upload files.
+
+De website gebruikt externe CDN's voor Supabase JS, Marked, DOMPurify en Google Fonts; bezoekers hebben internet nodig om alles te laden.

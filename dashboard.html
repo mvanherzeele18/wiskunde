@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — Wiskunde</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <script defer src="dashboard.js"></script>
+</head>
+<body class="dashboard-body">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">∑</span><span>Wiskunde<span class="brand-sub">BEHEERDASHBOARD</span></span></a>
+    <a class="admin-link" href="index.html">Naar leeromgeving ↗</a>
+  </header>
+  <main class="wrap dashboard-wrap">
+    <section class="dashboard-intro"><p class="eyebrow">ALLEEN VOOR DE BEHEERDER</p><h1>Leerstof<br><span>beheren.</span></h1><p class="hero-copy">Log in om hoofdstukken toe te voegen, te wijzigen of te verwijderen. De wijzigingen zijn daarna zichtbaar voor je klas.</p></section>
+
+    <section id="login-panel" class="panel login-panel">
+      <div class="panel-icon">↗</div><h2>Inloggen</h2><p class="muted">Gebruik het account dat vooraf voor jou is aangemaakt.</p>
+      <form id="login-form">
+        <label>E-mailadres<input id="email" type="email" autocomplete="username" required placeholder="jij@example.com"></label>
+        <label>Wachtwoord<input id="password" type="password" autocomplete="current-password" required placeholder="Je wachtwoord"></label>
+        <button class="primary-button" type="submit">Inloggen <span>→</span></button>
+      </form>
+      <p id="login-message" class="form-message" role="status"></p>
+    </section>
+
+    <section id="editor-panel" hidden>
+      <div class="editor-top"><div><p class="eyebrow">BEHEER</p><h2>Jouw hoofdstukken</h2></div><button id="logout-button" class="secondary-button">Uitloggen</button></div>
+      <div class="editor-layout">
+        <section class="panel chapter-panel">
+          <div class="panel-heading"><div><p class="eyebrow">INHOUD</p><h3 id="form-title">Nieuw hoofdstuk</h3></div><span class="panel-icon">＋</span></div>
+          <form id="chapter-form">
+            <input id="original-path" type="hidden">
+            <label>Boek<select id="book" required>
+              <option value="Goniometrie en Meetkunde">Goniometrie en Meetkunde</option>
+              <option value="Grafen">Grafen</option>
+              <option value="Telproblemen">Telproblemen</option>
+              <option value="Functies">Functies</option>
+            </select></label>
+            <label>Titel van het hoofdstuk<input id="chapter-title" maxlength="100" required placeholder="Bijv. Sinus, cosinus en tangens"></label>
+            <label>Korte omschrijving<input id="chapter-summary" maxlength="180" placeholder="Waarover gaat dit hoofdstuk?"></label>
+            <label>Bestandsnaam <span class="label-hint">(zonder .md)</span><input id="slug" maxlength="70" required pattern="[a-z0-9-]+" placeholder="sinus-cosinus-tangens"></label>
+            <label>Leerstof in Markdown<textarea id="markdown" rows="14" required placeholder="# Titel&#10;&#10;## Uitleg&#10;Schrijf hier je uitleg.&#10;&#10;## Formules&#10;- Formule 1&#10;&#10;## Voorbeeld&#10;Werk een voorbeeld stap voor stap uit."></textarea></label>
+            <p class="editor-help">Je kunt Markdown gebruiken: # titels, **vet**, lijstjes met - en formules als gewone tekst. Bestandsnamen mogen alleen kleine letters, cijfers en streepjes bevatten.</p>
+            <div class="form-actions"><button class="primary-button" type="submit" id="save-button">Hoofdstuk opslaan <span>→</span></button><button class="secondary-button" type="button" id="cancel-edit" hidden>Annuleren</button></div>
+            <p id="save-message" class="form-message" role="status"></p>
+          </form>
+        </section>
+        <section class="panel list-panel">
+          <div class="panel-heading"><div><p class="eyebrow">BESTANDEN</p><h3>Gepubliceerde leerstof</h3></div><span class="panel-icon">≡</span></div>
+          <p class="muted small">Kies een hoofdstuk om het aan te passen of te verwijderen.</p>
+          <div id="admin-topic-list" class="admin-topic-list"><p class="muted">Je bestanden worden geladen…</p></div>
+        </section>
+      </div>
+    </section>
+    <footer><span>WISKUNDE · BEHEER</span><span>Bewaar je login privé.</span></footer>
+  </main>
+</body>
+</html>
