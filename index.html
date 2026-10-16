@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f6ff">
+<title>Wiskunde — Formules & inzicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6ff;--surface:#fff;--ink:#171b35;--muted:#6d728d;--line:#e3e5f2;--purple:#6957e8;--purple-soft:#eeebff;--blue:#3877e8;--blue-soft:#eaf2ff;--mint:#168b73;--mint-soft:#e4f8f1;--orange:#c96a25;--orange-soft:#fff0e3;--shadow:0 14px 40px #25245a0d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'DM Sans',sans-serif}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.wrap{max-width:1120px;margin:auto;padding:0 24px}
+header{padding:22px 0;border-bottom:1px solid var(--line);background:#ffffffc9;backdrop-filter:blur(16px);position:sticky;top:0;z-index:5}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:11px;font:700 1.2rem 'Space Grotesk',sans-serif}.brand-icon{width:42px;height:42px;border-radius:14px;background:var(--purple);color:white;display:grid;place-items:center;font-size:1.35rem;box-shadow:0 7px 18px #6957e83a}.nav-note{color:var(--muted);font-size:.9rem}
+.hero{padding:68px 0 38px;position:relative;overflow:hidden}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #ddd8ff;background:var(--purple-soft);color:var(--purple);font-size:.82rem;font-weight:700;border-radius:999px}.hero h1{font:700 clamp(2.5rem,6vw,4.7rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.055em;max-width:760px;margin:20px 0}.hero h1 span{color:var(--purple)}.hero p{max-width:650px;color:var(--muted);font-size:1.12rem;margin:0 0 24px}.search{width:min(100%,600px);display:flex;align-items:center;gap:10px;background:white;border:1px solid var(--line);border-radius:16px;padding:7px 15px;box-shadow:var(--shadow)}.search input{border:0;outline:0;flex:1;min-width:0;padding:8px;background:transparent}.search:focus-within{border-color:var(--purple);box-shadow:0 0 0 4px #6957e817}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:38px 0 18px}.section-head h2{font:700 1.65rem 'Space Grotesk',sans-serif;margin:0;letter-spacing:-.03em}.section-head p{margin:4px 0 0;color:var(--muted)}.count{color:var(--muted);font-size:.9rem}
+.book-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.book{border:1px solid var(--line);border-radius:22px;background:var(--surface);padding:20px;min-height:205px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;box-shadow:var(--shadow);transition:transform .22s,border-color .22s,box-shadow .22s;animation:rise .5s both}.book:hover{transform:translateY(-5px);border-color:#c9c3ff;box-shadow:0 18px 40px #29215e14}.book .emoji{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;font-size:1.5rem;margin-bottom:18px}.book h3{font:700 1.08rem/1.3 'Space Grotesk',sans-serif;margin:0 0 8px}.book p{font-size:.88rem;color:var(--muted);margin:0 0 18px}.book .go{margin-top:auto;font-weight:700;font-size:.88rem;color:var(--purple)}.purple .emoji{background:var(--purple-soft)}.blue .emoji{background:var(--blue-soft)}.mint .emoji{background:var(--mint-soft)}.orange .emoji{background:var(--orange-soft)}
+.study{margin:46px 0 70px;display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}.sidebar,.lesson-panel{background:white;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.sidebar{padding:18px;position:sticky;top:92px}.sidebar h3{font:700 1rem 'Space Grotesk',sans-serif;margin:4px 8px 12px}.topic-list{display:grid;gap:6px}.topic-btn{border:0;background:transparent;text-align:left;border-radius:12px;padding:11px 12px;color:var(--muted);font-weight:600;transition:background .2s,color .2s}.topic-btn:hover{background:#f7f6ff;color:var(--ink)}.topic-btn.active{background:var(--purple-soft);color:var(--purple)}.lesson-panel{padding:clamp(20px,4vw,38px);min-height:480px}.lesson-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.tag{font-size:.78rem;font-weight:700;border-radius:999px;padding:5px 10px;background:var(--purple-soft);color:var(--purple)}.lesson-panel h2{font:700 clamp(1.7rem,4vw,2.4rem)/1.15 'Space Grotesk',sans-serif;letter-spacing:-.04em;margin:18px 0 10px}.lead{color:var(--muted);font-size:1.04rem;margin:0 0 24px}.subhead{font:700 1.05rem 'Space Grotesk',sans-serif;margin:26px 0 10px}.formula{background:#f7f6ff;border:1px solid #e5e1ff;border-left:4px solid var(--purple);padding:17px 18px;border-radius:12px;margin:12px 0;font-size:1.05rem}.formula strong{display:block;font-size:.77rem;letter-spacing:.07em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}.math{font:600 1.15rem 'Space Grotesk',sans-serif;letter-spacing:.01em}.lesson-panel ul{padding-left:22px}.lesson-panel li{margin:7px 0}.tip{background:#fff7e9;border:1px solid #ffe5bb;border-radius:12px;padding:15px 17px;margin-top:18px;color:#80511e}.tip b{display:block;margin-bottom:4px}.empty{padding:30px;text-align:center;color:var(--muted);grid-column:1/-1}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:.88rem}.footer-inner{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.hidden{display:none!important}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.book-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.study{grid-template-columns:1fr}.sidebar{position:static}.topic-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.wrap{padding:0 16px}.hero{padding-top:45px}.book-grid{grid-template-columns:1fr}.book{min-height:unset}.nav-note{display:none}.topic-list{grid-template-columns:1fr 1fr}.lesson-panel{padding:20px}.section-head{align-items:start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="#"><span class="brand-icon">∑</span><span>Wiskunde<span style="color:var(--purple)">.</span></span></a><span class="nav-note">Jouw digitale leerboek · 3de middelbaar</span></div></header>
+<main class="wrap">
+<section class="hero">
+<span class="eyebrow">✦ Begrijp het. Onthoud het. Gebruik het.</span>
+<h1>Wiskunde wordt<br><span>een stuk duidelijker.</span></h1>
+<p>Alle formules, heldere uitleg en leerstof op één plek. Kies een boek en duik in het onderwerp.</p>
+<label class="search"><span>⌕</span><input id="search" type="search" placeholder="Zoek een formule of onderwerp…" aria-label="Zoek in de leerstof"><kbd style="color:var(--muted);font-size:.75rem">⌕</kbd></label>
+</section>
+<section>
+<div class="section-head"><div><h2>Kies je boek</h2><p>Vier onderdelen, één overzicht.</p></div><span class="count" id="resultCount">4 boeken</span></div>
+<div class="book-grid" id="bookGrid"></div>
+</section>
+<section class="study" id="studeren">
+<aside class="sidebar"><h3>Inhoud</h3><div class="topic-list" id="topicList"></div></aside>
+<article class="lesson-panel" id="lesson"><div class="lesson-top"><span class="tag">START HIER</span><span class="count">Kies een onderwerp links</span></div><h2>Jouw leerplek</h2><p class="lead">Selecteer een boek of onderwerp om de formules en uitleg te bekijken.</p><div class="formula"><strong>Tip</strong> Begin met de betekenis van de symbolen. Een formule begrijpen werkt beter dan ze alleen vanbuiten leren.</div></article>
+</section>
+</main>
+<footer><div class="wrap footer-inner"><span>∑ Wiskunde — Formules & inzicht</span><span>Leerstof groeit stap voor stap. Oefeningen volgen later.</span></div></footer>
+<script>
+const books = [
+ {id:'goniometrie',title:'Goniometrie en Meetkunde',short:'Hoeken, driehoeken en meetkundige verbanden.',icon:'📐',theme:'purple',topics:[
+  {id:'driehoek',title:'Rechthoekige driehoek',level:'MEETKUNDE',lead:'In een rechthoekige driehoek helpen de stelling van Pythagoras en de goniometrische verhoudingen om onbekende zijden en hoeken te berekenen.',sections:[['Formules',[['Stelling van Pythagoras','a² + b² = c²','a en b zijn de rechthoekszijden; c is de schuine zijde.']]],['Uitleg',['Gebruik Pythagoras wanneer je twee zijden kent en de derde zoekt. De schuine zijde ligt tegenover de rechte hoek.']],['Stappenplan',['Noteer welke zijde onbekend is.','Vul de gekende lengtes in.','Los de vergelijking op en controleer of het antwoord logisch is.']]],tip:'Pythagoras geldt alleen voor rechthoekige driehoeken.'},
+  {id:'sin-cos-tan',title:'Sinus, cosinus en tangens',level:'GONIOMETRIE',lead:'Met sinus, cosinus en tangens verbind je een scherpe hoek met de zijden van een rechthoekige driehoek.',sections:[['Formules',[['Sinus','sin(α) = overstaande zijde / schuine zijde','OS / SS'] ,['Cosinus','cos(α) = aanliggende zijde / schuine zijde','AS / SS'],['Tangens','tan(α) = overstaande zijde / aanliggende zijde','OS / AS']]],['Uitleg',['Kies de verhouding die de gekende en gezochte zijden bevat. Zorg dat je rekenmachine in de juiste hoekeenheid staat (meestal graden).']],['Stappenplan',['Duid de hoek α aan.','Bepaal overstaande, aanliggende en schuine zijde.','Kies sin, cos of tan.','Vul de gegevens in en reken uit.']]],tip:'Gebruik SOH-CAH-TOA als geheugensteun: Sinus = Overstaande/Schuine, Cosinus = Aanliggende/Schuine, Tangens = Overstaande/Aanliggende.'},
+  {id:'hoeken',title:'Hoeken en graden',level:'MEETKUNDE',lead:'Hoeken meten we in graden (°). De som van de binnenhoeken van een driehoek is altijd 180°.',sections:[['Formules',[['Binnenhoeken driehoek','α + β + γ = 180°','De drie binnenhoeken samen.'],['Gestrekte hoek','α + β = 180°','Hoeken op één rechte lijn.'],['Volle hoek','360°','Een volledige draai.']]],['Uitleg',['Overstaande hoeken bij twee snijdende rechten zijn even groot. Bij evenwijdige rechten geven een snijlijn en F-, Z- en U-hoeken extra verbanden.']],['Let op',['Teken de situatie en schrijf gekende hoeken erbij.','Gebruik even grote overstaande hoeken of de som van 180°.']]],tip:'Maak eerst een schets en noteer de bekende hoeken voor je begint te rekenen.'}
+ ]},
+ {id:'grafen',title:'Grafen',short:'Knopen, verbindingen en routes.',icon:'🕸️',theme:'blue',topics:[
+  {id:'basis-grafen',title:'Basisbegrippen van grafen',level:'GRAFEN',lead:'Een graaf bestaat uit knopen (punten) en kanten (verbindingen). Grafen helpen om netwerken en routes te beschrijven.',sections:[['Begrippen',[['Knoop','Een punt in de graaf.','Stelt bijvoorbeeld een stad of persoon voor.'],['Kant','Een verbinding tussen twee knopen.','Kan gericht of ongericht zijn.'],['Graad van een knoop','Het aantal kanten dat aan de knoop grenst.','Bij een lus telt die in een gewone graaf doorgaans dubbel.']]],['Zo pak je het aan',['Tel de knopen afzonderlijk.','Volg elke kant en controleer welke knopen ze verbindt.','Schrijf bij een knoop de graad door de aangrenzende kanten te tellen.']]],tip:'Maak bij een graaf een duidelijke tekening en tel elke kant zorgvuldig.'},
+  {id:'euler',title:'Eulerwegen en Eulercircuits',level:'GRAFEN',lead:'Bij een Eulerweg doorloop je elke kant precies één keer. Een Eulercircuit is zo’n route die ook terugkeert naar het beginpunt.',sections:[['Belangrijke regels',[['Euler-circuit','Alle knopen met kanten hebben een even graad.','Voor een verbonden ongerichte graaf.'],['Eulerweg zonder circuit','Precies twee knopen hebben een oneven graad.','Die knopen zijn begin- en eindpunt.']]],['Stappenplan',['Controleer of de graaf verbonden is (zonder geïsoleerde knopen mee te tellen).','Bereken de graad van elke knoop.','Tel de knopen met een oneven graad.']]],tip:'0 oneven graden: circuit mogelijk. 2 oneven graden: open Eulerweg mogelijk. Anders niet.'},
+  {id:'kortste-route',title:'Kortste route',level:'GRAFEN',lead:'In een gewogen graaf heeft elke kant een gewicht, bijvoorbeeld afstand, tijd of kost. Je zoekt een route met de kleinste totale som.',sections:[['Aanpak',['Noteer het gewicht bij elke kant.','Vergelijk mogelijke routes van begin naar eind.','Tel de gewichten van elke route op.','Kies de kleinste totale waarde.']],['Voorbeeld',[['Route A','3 + 5 + 2 = 10','Totale lengte 10.'],['Route B','4 + 2 + 2 = 8','Route B is korter als de gewichten afstanden voorstellen.']]]],tip:'Een route met minder kanten is niet automatisch de kortste route.'}
+ ]},
+ {id:'telproblemen',title:'Telproblemen',short:'Systematisch tellen zonder iets te missen.',icon:'🧮',theme:'mint',topics:[
+  {id:'somregel',title:'Som- en productregel',level:'TELPROBLEMEN',lead:'De somregel gebruik je bij alternatieven. De productregel gebruik je wanneer een keuze uit meerdere opeenvolgende stappen bestaat.',sections:[['Formules',[['Somregel','m + n mogelijkheden','Voor keuze A óf keuze B, zonder overlap.'],['Productregel','m × n mogelijkheden','Voor keuze A én daarna keuze B.']]],['Voorbeeld',['Je kiest één drankje uit 3 soorten of één snack uit 4 soorten: 3 + 4 = 7 mogelijkheden.','Kies je een drankje én een snack, dan zijn er 3 × 4 = 12 combinaties.']]],tip:'Vraag jezelf af: kies ik tussen opties (optellen) of combineer ik stappen (vermenigvuldigen)?'},
+  {id:'faculteit',title:'Faculteit en permutaties',level:'TELPROBLEMEN',lead:'Een faculteit vermenigvuldigt alle positieve gehele getallen tot en met n. Permutaties tellen volgordes waarbij alle gekozen elementen gebruikt worden.',sections:[['Formules',[['Faculteit','n! = n · (n−1) · … · 2 · 1','Per definitie is 0! = 1.'],['Volgordes van n verschillende elementen','n!','Bijvoorbeeld n verschillende boeken op een rij.']]],['Voorbeeld',['4! = 4 · 3 · 2 · 1 = 24.','Vier verschillende boeken kunnen dus op 24 manieren in een rij staan.']]],tip:'Volgorde belangrijk? Dan kan een permutatie passen. Controleer ook of herhaling toegelaten is.'},
+  {id:'combinaties',title:'Combinaties',level:'TELPROBLEMEN',lead:'Bij combinaties kies je een groep waarbij de volgorde niet belangrijk is.',sections:[['Formule',[['Kies k uit n','C(n,k) = n! / (k!(n−k)!)','Ook geschreven als “n boven k”.']]],['Voorbeeld',['Kies 2 leerlingen uit een groep van 5: C(5,2) = 5! / (2!·3!) = 10.','De groep A-B is dezelfde keuze als B-A.']]],tip:'Als de volgorde geen verschil maakt, tel je de volgordes niet apart.'}
+ ]},
+ {id:'functies',title:'Functies',short:'Grafieken, verbanden en eigenschappen.',icon:'📈',theme:'orange',topics:[
+  {id:'functie-basis',title:'Wat is een functie?',level:'FUNCTIES',lead:'Een functie koppelt aan elke toegelaten invoer x precies één uitvoer y. Vaak noteren we y = f(x).',sections:[['Begrippen',[['Functiewaarde','f(a)','De uitvoer die hoort bij invoer x = a.'],['Nulpunt','f(x) = 0','De x-waarde waar de grafiek de x-as raakt of snijdt.'],['Domein','Alle toegelaten x-waarden','De invoerwaarden waarvoor de functie bestaat.']]],['Voorbeeld',['Voor f(x) = 2x + 3 is f(4) = 2·4 + 3 = 11.','Het nulpunt vind je door 2x + 3 = 0 op te lossen: x = −1,5.']]],tip:'Een nulpunt is een x-waarde, niet het punt zelf. Het punt op de grafiek is (x, 0).'},
+  {id:'rechte',title:'Lineaire functies',level:'FUNCTIES',lead:'Een lineaire functie heeft een rechte als grafiek en kan geschreven worden als f(x) = ax + b.',sections:[['Formules',[['Functievoorschrift','f(x) = ax + b','a is de richtingscoëfficiënt; b is het snijpunt met de y-as.'],['Richtingscoëfficiënt','a = (y₂ − y₁)/(x₂ − x₁)','Voor twee verschillende punten op de rechte.']]],['Uitleg',['Als a positief is, stijgt de rechte. Als a negatief is, daalt ze. Als a = 0, is de functie constant.','De grafiek snijdt de y-as bij (0,b).']],tip:'Gebruik twee punten op de rechte en neem telkens hetzelfde verschil in x en y.'},
+  {id:'tweedegraads',title:'Tweede graad',level:'FUNCTIES',lead:'Een tweedegraadsfunctie heeft de vorm f(x) = ax² + bx + c met a ≠ 0. De grafiek is een parabool.',sections:[['Formules',[['Algemene vorm','f(x) = ax² + bx + c','a bepaalt de richting en breedte; b en c beïnvloeden de ligging.'],['Discriminant','D = b² − 4ac','Helpt bepalen hoeveel reële nulpunten er zijn.'],['Nulpunten','x = (−b ± √D)/(2a)','Geldig voor reële oplossingen wanneer D ≥ 0.']]],['Discriminant',['D > 0: twee verschillende reële nulpunten.','D = 0: één dubbel reëel nulpunt.','D < 0: geen reële nulpunten.']]],tip:'Schrijf a, b en c eerst met het juiste teken op voordat je de discriminant berekent.'}
+ ]}
+];
+let currentBook=null,currentTopic=null,query='';
+const grid=document.getElementById('bookGrid'), topicList=document.getElementById('topicList'), lesson=document.getElementById('lesson');
+function renderBooks(){
+ const filtered=books.filter(b=>(b.title+' '+b.short+' '+b.topics.map(t=>t.title+' '+t.lead+' '+JSON.stringify(t.sections)).join(' ')).toLowerCase().includes(query));
+ grid.innerHTML=filtered.length?filtered.map((b,i)=>`<button class="book ${b.theme}" data-book="${b.id}" style="animation-delay:${i*60}ms"><span class="emoji">${b.icon}</span><h3>${b.title}</h3><p>${b.short}</p><span class="go">${b.topics.length} onderwerpen bekijken →</span></button>`).join(''):'<div class="empty">Geen onderwerpen gevonden. Probeer een andere zoekterm.</div>';
+ document.getElementById('resultCount').textContent=`${filtered.length} ${filtered.length===1?'boek':'boeken'}`;
+ grid.querySelectorAll('[data-book]').forEach(el=>el.addEventListener('click',()=>selectBook(el.dataset.book)));
+}
+function selectBook(id){
+ currentBook=books.find(b=>b.id===id);currentTopic=currentBook.topics[0];
+ topicList.innerHTML=currentBook.topics.map(t=>`<button class="topic-btn ${t.id===currentTopic.id?'active':''}" data-topic="${t.id}">${t.title}</button>`).join('');
+ topicList.querySelectorAll('[data-topic]').forEach(el=>el.addEventListener('click',()=>selectTopic(el.dataset.topic)));
+ renderLesson();document.getElementById('studeren').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function selectTopic(id){currentTopic=currentBook.topics.find(t=>t.id===id);topicList.querySelectorAll('[data-topic]').forEach(el=>el.classList.toggle('active',el.dataset.topic===id));renderLesson();}
+function renderLesson(){
+ const t=currentTopic;
+ let body=`<div class="lesson-top"><span class="tag">${t.level}</span><span class="count">${currentBook.title}</span></div><h2>${t.title}</h2><p class="lead">${t.lead}</p>`;
+ t.sections.forEach(([heading,items])=>{
+   body+=`<h3 class="subhead">${heading}</h3>`;
+   if(Array.isArray(items[0])) body+=items.map(it=>`<div class="formula"><strong>${it[0]}</strong><div class="math">${it[1]}</div>${it[2]?`<div style="color:var(--muted);font-size:.9rem;margin-top:5px">${it[2]}</div>`:''}</div>`).join('');
+   else body+=`<ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+ });
+ if(t.tip)body+=`<div class="tip"><b>💡 Onthoud dit</b>${t.tip}</div>`;
+ lesson.innerHTML=body;
+}
+document.getElementById('search').addEventListener('input',e=>{
+ query=e.target.value.trim().toLowerCase();renderBooks();
+ if(query){const found=books.flatMap(b=>b.topics.map(t=>({b,t}))).find(x=>(x.t.title+' '+x.t.lead+' '+JSON.stringify(x.t.sections)).toLowerCase().includes(query));if(found){selectBook(found.b.id);selectTopic(found.t.id);}}
+});
+renderBooks();
+</script>
+</body>
+</html>
