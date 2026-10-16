@@ -1,23 +1,23 @@
-# Wiskunde — Formules & inzicht
+# Mijn wiskunde-dashboard
 
-Een moderne, responsieve website voor de leerstof van vier wiskundeboeken:
-- Goniometrie en Meetkunde
-- Grafen
-- Telproblemen
-- Functies
+Een eenvoudige website voor leerstof van het 4de middelbaar.
 
-## Bestanden
-- `index.html`: volledige eerste versie; HTML, CSS en JavaScript zitten samen in één bestand.
+## Wat kan de website?
+- Vier boekonderdelen: Goniometrie en Meetkunde, Grafen, Telproblemen en Functies.
+- Zelf hoofdstukken toevoegen met een titel, korte uitleg, formules en uitgebreide notities.
+- Bestaande leerstof bewerken of verwijderen.
+- Zoeken in onderwerpen en inhoud.
+- De eigen notities automatisch bewaren in de browser.
 
-## Lokaal bekijken
-Open `index.html` in je browser.
+## Lokaal starten
+Open `index.html` in een moderne browser.
 
 ## Publiceren met GitHub Pages
-1. Maak op GitHub een repository met de naam `wiskunde`.
-2. Upload `index.html` en `README.md` naar de root van de repository.
-3. Ga naar **Settings → Pages**.
-4. Kies **Deploy from a branch**, selecteer `main` en `/ (root)`, en sla op.
-5. Na het publiceren is de website normaal beschikbaar op `https://mvanherzeele18.github.io/wiskunde/`.
+1. Upload `index.html` en `README.md` naar de root van de repository `wiskunde`.
+2. Ga naar Settings → Pages.
+3. Kies Deploy from a branch, selecteer `main` en `/ (root)`, en sla op.
 
-## Verder uitbouwen
-De onderwerpen en uitleg staan in de `books`-array in `index.html`. Voeg nieuwe onderwerpen toe volgens dezelfde structuur. De huidige inhoud is een startbasis en moet nog worden afgestemd op de exacte leerstof en notatie uit je schoolboeken. Oefeningen, voortgang en interactieve quizzen kunnen later als aparte functie worden toegevoegd.
+## Belangrijk over bewaren
+Zelf toegevoegde notities worden opgeslagen in localStorage van de browser op het toestel dat je gebruikt. Ze worden niet automatisch naar GitHub gesynchroniseerd en verschijnen niet vanzelf op een ander toestel. Bewaar je notities door de browsergegevens niet te wissen en maak eventueel een back-up.
+
+De voorbeeldinhoud is een startbasis. Controleer formules en leerstof met je eigen cursus.
