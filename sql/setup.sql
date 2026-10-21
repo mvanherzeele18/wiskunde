@@ -21,7 +21,7 @@ on storage.objects for insert
 to authenticated
 with check (
   bucket_id = 'leerstof'
-  and auth.uid() = '637755e3-4875-4528-8ec9-0a2d1ab16ade'::uuid
+  and auth.uid() = 'VUL-HIER-JE-ADMIN-USER-UUID-IN'::uuid
 );
 
 -- Alleen diezelfde gebruiker mag bestaande bestanden aanpassen.
@@ -31,11 +31,11 @@ on storage.objects for update
 to authenticated
 using (
   bucket_id = 'leerstof'
-  and auth.uid() = '637755e3-4875-4528-8ec9-0a2d1ab16ade'::uuid
+  and auth.uid() = 'VUL-HIER-JE-ADMIN-USER-UUID-IN'::uuid
 )
 with check (
   bucket_id = 'leerstof'
-  and auth.uid() = '637755e3-4875-4528-8ec9-0a2d1ab16ade'::uuid
+  and auth.uid() = 'VUL-HIER-JE-ADMIN-USER-UUID-IN'::uuid
 );
 
 -- Alleen diezelfde gebruiker mag bestanden verwijderen.
@@ -45,5 +45,5 @@ on storage.objects for delete
 to authenticated
 using (
   bucket_id = 'leerstof'
-  and auth.uid() = '637755e3-4875-4528-8ec9-0a2d1ab16ade'::uuid
+  and auth.uid() = 'VUL-HIER-JE-ADMIN-USER-UUID-IN'::uuid
 );
