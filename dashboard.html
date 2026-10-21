@@ -45,8 +45,26 @@
             <label>Titel van het hoofdstuk<input id="chapter-title" maxlength="100" required placeholder="Bijv. Sinus, cosinus en tangens"></label>
             <label>Korte omschrijving<input id="chapter-summary" maxlength="180" placeholder="Waarover gaat dit hoofdstuk?"></label>
             <label>Bestandsnaam <span class="label-hint">(zonder .md)</span><input id="slug" maxlength="70" required pattern="[a-z0-9-]+" placeholder="sinus-cosinus-tangens"></label>
-            <label>Leerstof in Markdown<textarea id="markdown" rows="14" required placeholder="# Titel&#10;&#10;## Uitleg&#10;Schrijf hier je uitleg.&#10;&#10;## Formules&#10;- Formule 1&#10;&#10;## Voorbeeld&#10;Werk een voorbeeld stap voor stap uit."></textarea></label>
-            <p class="editor-help">Je kunt Markdown gebruiken: # titels, **vet**, lijstjes met - en formules als gewone tekst. Bestandsnamen mogen alleen kleine letters, cijfers en streepjes bevatten.</p>
+            <label>Leerstof <span class="label-hint">(Markdown)</span></label>
+            <div class="editor-toolbar" aria-label="Tekstopmaak">
+              <button type="button" class="mini-button" data-insert="# ">H Titel</button>
+              <button type="button" class="mini-button" data-insert="## ">H2 Titel</button>
+              <button type="button" class="mini-button" data-wrap="**">Vet</button>
+              <button type="button" class="mini-button" data-insert="- ">• Lijst</button>
+              <button type="button" class="mini-button" data-insert="\n\n> ">Tip / opmerking</button>
+            </div>
+            <textarea id="markdown" rows="14" required placeholder="# Titel&#10;&#10;## Uitleg&#10;Schrijf hier je uitleg.&#10;&#10;## Formules&#10;- Formule 1&#10;&#10;## Uitgewerkt voorbeeld&#10;Werk een voorbeeld stap voor stap uit."></textarea>
+            <section class="image-uploader" aria-labelledby="image-heading">
+              <h4 id="image-heading">Afbeelding toevoegen</h4>
+              <p class="muted small">Upload een schema, grafiek of foto van een voorbeeld. JPG, PNG, WebP of GIF — maximaal 8 MB.</p>
+              <label>Afbeeldingsbeschrijving <input id="image-alt" maxlength="160" placeholder="Bijv. Rechthoekige driehoek met hoek α"></label>
+              <div class="upload-row"><input id="image-file" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><button id="upload-image" class="secondary-button" type="button">Uploaden en invoegen</button></div>
+              <p id="image-message" class="form-message" role="status"></p>
+              <div id="image-preview" class="image-preview" hidden></div>
+            </section>
+            <div class="preview-heading"><strong>Voorbeeld van je hoofdstuk</strong><button id="toggle-preview" class="mini-button" type="button" aria-expanded="false">Voorbeeld tonen</button></div>
+            <div id="markdown-preview" class="markdown-content editor-preview" hidden></div>
+            <p class="editor-help">Je kunt Markdown gebruiken: # titels, **vet**, lijstjes met - en formules als gewone tekst. Gebruik de knoppen voor snelle opmaak. Bestandsnamen mogen alleen kleine letters, cijfers en streepjes bevatten.</p>
             <div class="form-actions"><button class="primary-button" type="submit" id="save-button">Hoofdstuk opslaan <span>→</span></button><button class="secondary-button" type="button" id="cancel-edit" hidden>Annuleren</button></div>
             <p id="save-message" class="form-message" role="status"></p>
           </form>

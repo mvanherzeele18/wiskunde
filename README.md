@@ -47,9 +47,20 @@ Upload de inhoud van deze map naar de root van je repository `wiskunde`. Ga naar
 - Log in met jouw account: toevoegen, wijzigen en verwijderen moet werken.
 - Maak nooit een tweede gebruiker met beheerrechten. Test eventueel met een apart testaccount dat geen schrijfrechten heeft.
 
-## Leerstof toevoegen
+## Leerstof toevoegen en afbeeldingen gebruiken
 
-Log in op `dashboard.html`, kies het boek, geef het hoofdstuk een titel en bestandsnaam en schrijf de inhoud. Gebruik bijvoorbeeld:
+Log in op `dashboard.html`, kies het boek, geef het hoofdstuk een titel en bestandsnaam en schrijf de inhoud. De editor heeft snelle opmaakknoppen en een voorbeeldweergave. Klik op **Voorbeeld tonen** om te controleren hoe je hoofdstuk eruitziet voordat je het opslaat.
+
+### Afbeeldingen uploaden
+
+1. Kies in de editor bij **Afbeelding toevoegen** een JPG-, PNG-, WebP- of GIF-bestand (maximaal 8 MB).
+2. Vul een korte beschrijving in. Dit helpt ook leerlingen die een schermlezer gebruiken.
+3. Klik op **Uploaden en invoegen**. De afbeelding wordt in de publieke Supabase-bucket bewaard en als Markdown in je tekst geplaatst.
+4. Controleer het resultaat in de voorbeeldweergave en sla daarna het hoofdstuk op.
+
+De SQL-policy geeft alleen het beheeraccount schrijfrechten in de bucket; afbeeldingen zijn, net als gepubliceerde leerstof, publiek leesbaar. Upload dus alleen afbeeldingen die je met je klas wilt delen. Een afbeelding die je niet meer gebruikt, kan je in Supabase Storage verwijderen onder `afbeeldingen/`.
+
+Gebruik bijvoorbeeld:
 
 ```md
 # Titel van het hoofdstuk

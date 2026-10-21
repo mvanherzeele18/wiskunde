@@ -109,9 +109,55 @@
     $("logout-button").addEventListener("click",async()=>{await client.auth.signOut();});
     $("chapter-form").addEventListener("submit",handleSave);
     $("cancel-edit").addEventListener("click",resetForm);
+    document.querySelectorAll("[data-insert]").forEach(button=>button.addEventListener("click",()=>insertAtCursor(button.dataset.insert)));
+    document.querySelectorAll("[data-wrap]").forEach(button=>button.addEventListener("click",()=>wrapSelection(button.dataset.wrap)));
+    $("markdown").addEventListener("input",renderPreview);
+    $("chapter-title").addEventListener("input",renderPreview);
+    $("chapter-summary").addEventListener("input",renderPreview);
+    $("toggle-preview").addEventListener("click",()=>{const panel=$("markdown-preview"),show=panel.hidden;panel.hidden=!show;$("toggle-preview").textContent=show?"Voorbeeld verbergen":"Voorbeeld tonen";$("toggle-preview").setAttribute("aria-expanded",String(show));if(show)renderPreview();});
+    $("upload-image").addEventListener("click",uploadImage);
     $("chapter-title").addEventListener("input",()=>{if(!$("original-path").value||$("slug").dataset.autofill==="true"){$("slug").value=slugify($("chapter-title").value);$("slug").dataset.autofill="true";}});
     $("slug").addEventListener("input",()=>{$("slug").dataset.autofill="false";});
   }
+  function insertAtCursor(text) {
+    const field=$("markdown"),start=field.selectionStart,end=field.selectionEnd;
+    field.setRangeText(text,start,end,"end");field.focus();renderPreview();
+  }
+  function wrapSelection(wrapper) {
+    const field=$("markdown"),start=field.selectionStart,end=field.selectionEnd;
+    const selected=field.value.slice(start,end)||"tekst";
+    field.setRangeText(wrapper+selected+wrapper,start,end,"select");field.focus();renderPreview();
+  }
+  function renderPreview() {
+    const host=$("markdown-preview");if(!host||host.hidden)return;
+    const source=$("markdown").value||"Schrijf links je leerstof om hier een voorbeeld te zien.";
+    const html=window.marked?window.marked.parse(source):`<pre>${source.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</pre>`;
+    host.innerHTML=window.DOMPurify?window.DOMPurify.sanitize(html,{USE_PROFILES:{html:true}}):html;
+    host.querySelectorAll("img").forEach(img=>{img.loading="lazy";img.alt=img.alt||"Afbeelding bij de leerstof";});
+  }
+  async function uploadImage() {
+    const file=$("image-file").files[0],alt=$("image-alt").value.trim();
+    message("image-message","");
+    if(!file){message("image-message","Kies eerst een afbeelding.",true);return;}
+    if(!["image/jpeg","image/png","image/webp","image/gif"].includes(file.type)){message("image-message","Gebruik een JPG-, PNG-, WebP- of GIF-afbeelding.",true);return;}
+    if(file.size>8*1024*1024){message("image-message","Deze afbeelding is groter dan 8 MB. Verklein ze eerst.",true);return;}
+    const button=$("upload-image");button.disabled=true;button.textContent="Uploaden…";
+    try {
+      const ext=({"image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif"})[file.type];
+      const clean=(file.name.replace(/\.[^.]+$/," ").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,45)||"afbeelding");
+      const path=`afbeeldingen/${Date.now()}-${clean}.${ext}`;
+      const {error}=await client.storage.from(config.BUCKET).upload(path,file,{upsert:false,contentType:file.type,cacheControl:"3600"});
+      if(error)throw error;
+      const {data}=client.storage.from(config.BUCKET).getPublicUrl(path);
+      const safeAlt=alt||file.name.replace(/\.[^.]+$/," ").trim()||"Afbeelding bij de leerstof";
+      const markdown=`![${safeAlt.replace(/]/g,"\\]")}](${data.publicUrl})`;
+      insertAtCursor(`\n\n${markdown}\n\n`);
+      const preview=$("image-preview");preview.replaceChildren();const img=document.createElement("img");img.src=data.publicUrl;img.alt=safeAlt;const caption=document.createElement("p");caption.textContent="Geüpload. De Markdown-verwijzing is in je leerstof geplaatst.";preview.append(img,caption);preview.hidden=false;
+      message("image-message","Afbeelding geüpload en ingevoegd.");$("image-file").value="";renderPreview();
+    } catch(err) {message("image-message","Uploaden mislukt: "+(err.message||"controleer de Supabase Storage-regels."),true);}
+    finally {button.disabled=false;button.textContent="Uploaden en invoegen";}
+  }
+
   async function updateAuthView() {
     $("login-panel").hidden=!!session;$("editor-panel").hidden=!session;
     if(session){message("login-message","");try{await loadChapters();}catch(err){message("save-message","Le bestanden konden niet geladen worden. Controleer de Storage-regels.",true);}}
